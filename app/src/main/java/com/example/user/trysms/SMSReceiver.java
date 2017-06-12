@@ -26,7 +26,7 @@ public class SMSReceiver extends BroadcastReceiver {
                 Object[] pduObjects = (Object[]) bundle.get("pdus");
                 if(pduObjects!=null){
                     for (Object object:pduObjects) {
-                        currentSMS = getIncomingMessage(object,bundle);
+                        currentSMS = buildIncomingMessage(object,bundle);
                         sender = currentSMS.getDisplayOriginatingAddress();
                         message = currentSMS.getDisplayMessageBody();
                         Toast.makeText(context, "Sender: "+sender+"\nMessage: "+message, Toast.LENGTH_SHORT).show();
@@ -36,7 +36,7 @@ public class SMSReceiver extends BroadcastReceiver {
         }
     }
 
-    private SmsMessage getIncomingMessage(Object object, Bundle bundle){
+    private SmsMessage buildIncomingMessage(Object object, Bundle bundle){
         SmsMessage incomingSMS;
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
             String format = bundle.getString("format");
